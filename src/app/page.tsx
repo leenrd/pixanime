@@ -1,11 +1,44 @@
-import Image from "next/image";
+import { Announcement } from "@/components/custom/announcement";
+import MainFooter from "@/components/custom/main-footer";
+import { MainNav } from "@/components/custom/main-nav";
+import {
+  PageHeader,
+  PageHeaderHeading,
+  PageHeaderDescription,
+  PageActions,
+} from "@/components/custom/page-header";
+import { Button } from "@/components/ui/button";
+import { Flame } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <h1 className="text-7xl font-bold">PixAnime</h1>
-      </div>
+    <main className="container relative flex-1">
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 max-w-screen-2xl items-center">
+          <MainNav />
+        </div>
+      </header>
+      <PageHeader>
+        <Announcement />
+        <PageHeaderHeading>PixAnime</PageHeaderHeading>
+        <PageHeaderDescription>
+          The best streaming platform for lazy people who like to watch millions
+          of movies, series and animes&apos; for free. Click watch now to get
+          started.
+        </PageHeaderDescription>
+        <PageActions>
+          <Link href="/anime">
+            <Button className="flex items-center justify-center">
+              <Flame className="mr-1" size={14} />
+              Watch now
+            </Button>
+          </Link>
+          <Button variant="outline">Pixlens</Button>
+        </PageActions>
+      </PageHeader>
+
+      <MainFooter className="mt-6" />
     </main>
   );
 }
