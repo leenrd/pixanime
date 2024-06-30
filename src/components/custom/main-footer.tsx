@@ -13,19 +13,24 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
     <>
       <Separator className="mt-[10em] mb-7" />
       <footer
-        className={cn("flex justify-between items-start px-7", className)}
+        className={cn("flex justify-between items-start px-7 mb-10", className)}
       >
-        <div id="left" className="flex gap-4 items-center">
-          <h1 className="text-xl font-semibold transition-colors hover:text-primary">
-            Pixqana
-          </h1>
-          <Badge
-            variant="outline"
-            className="inline-flex py-1 items-center gap-1 justify-center rounded-md"
-          >
-            <span className="h-2 w-2 rounded-full bg-green-500"></span>
-            <span> Status: Operational</span>
-          </Badge>
+        <div className="flex flex-col justify-between">
+          <div id="left" className="flex gap-4 items-center">
+            <h1 className="text-xl font-semibold transition-colors hover:text-primary">
+              Pixqana
+            </h1>
+            <Badge
+              variant="outline"
+              className="inline-flex py-1 items-center gap-1 justify-center rounded-md"
+            >
+              <span className="h-2 w-2 rounded-full bg-green-500"></span>
+              <span> Status: Operational</span>
+            </Badge>
+          </div>
+          <span className="text-sm text-gray-600 mt-4">
+            Made by Leenard Zarate
+          </span>
         </div>
         <div id="right">
           <ul className="flex gap-16">
@@ -34,7 +39,7 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
                 Product
               </h1>
               <ul className="mb-3">
-                <li>
+                <li className="mb-2">
                   <Link href={"/changelog"}>Changelog</Link>
                 </li>
                 <li>
@@ -47,7 +52,7 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
                 Company
               </h1>
               <ul className="mb-3">
-                <li>
+                <li className="mb-2">
                   <Link href={"/changelog"}>About Us</Link>
                 </li>
                 <li>
@@ -60,7 +65,7 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
                 Developers
               </h1>
               <ul className="mb-3">
-                <li>
+                <li className="mb-2">
                   <Link href={"https://github.com/leenrd/"}>Github</Link>
                 </li>
               </ul>
