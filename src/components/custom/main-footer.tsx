@@ -13,7 +13,10 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
     <>
       <Separator className="mt-[10em] mb-7" />
       <footer
-        className={cn("flex justify-between items-start px-7 mb-10", className)}
+        className={cn(
+          "flex justify-between items-start px-7 mb-10 z-50 bg-background",
+          className
+        )}
       >
         <div className="flex flex-col justify-between">
           <div id="left" className="flex gap-4 items-center">
