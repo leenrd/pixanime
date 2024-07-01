@@ -25,7 +25,7 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
               className="inline-flex py-1 items-center gap-1 justify-center rounded-md"
             >
               <span className="h-2 w-2 rounded-full bg-green-500"></span>
-              <span> Status: Operational</span>
+              <span className="text-primary"> Status: Operational</span>
             </Badge>
           </div>
           <span className="text-sm text-gray-600 mt-4">
@@ -40,10 +40,14 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
               </h1>
               <ul className="mb-3">
                 <li className="mb-2">
-                  <Link href={"/changelog"}>Changelog</Link>
+                  <Link href={"/changelog"} className="text-sm">
+                    Changelog
+                  </Link>
                 </li>
                 <li>
-                  <Link href={"/changelog"}>Support</Link>
+                  <Link href={"/changelog"} className="text-sm">
+                    Support
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -53,10 +57,14 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
               </h1>
               <ul className="mb-3">
                 <li className="mb-2">
-                  <Link href={"/changelog"}>About Us</Link>
+                  <Link href={"/changelog"} className="text-sm">
+                    About Us
+                  </Link>
                 </li>
                 <li>
-                  <Link href={"/changelog"}>Career</Link>
+                  <Link href={"/changelog"} className="text-sm">
+                    Career
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -66,7 +74,9 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
               </h1>
               <ul className="mb-3">
                 <li className="mb-2">
-                  <Link href={"https://github.com/leenrd/"}>Github</Link>
+                  <Link href={"https://github.com/leenrd/"} className="text-sm">
+                    Github
+                  </Link>
                 </li>
               </ul>
             </li>
