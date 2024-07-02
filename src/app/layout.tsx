@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
+"use client";
+
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { MainNav } from "@/components/custom/main-nav";
 import MainFooter from "@/components/custom/main-footer";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export const metadata: Metadata = {
-  title: "PixAnime",
-  description: "Anime streaming platform for lazy people.",
-};
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -17,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <MainNav />
-        {children}
-        <MainFooter />
+        <QueryClientProvider client={queryClient}>
+          <MainNav />
+          {children}
+          <MainFooter />
+        </QueryClientProvider>
       </body>
     </html>
   );

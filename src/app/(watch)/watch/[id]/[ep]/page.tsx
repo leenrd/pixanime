@@ -19,7 +19,7 @@ const Page: FC<PageProps> = ({}) => {
           <h2 className="relative px-7 text-lg font-semibold tracking-tight">
             Episodes
           </h2>
-          <ScrollArea className="h-[500px] px-1">
+          <ScrollArea className="h-[600px] px-1">
             <div className="space-y-1 p-5">
               {TrendingData?.map((playlist, i) => (
                 <Link
@@ -29,7 +29,7 @@ const Page: FC<PageProps> = ({}) => {
                 >
                   <Thumbnail
                     key={i}
-                    album={playlist}
+                    item={playlist}
                     aspectRatio="square"
                     className="w-[150px] mt-2"
                     width={150}

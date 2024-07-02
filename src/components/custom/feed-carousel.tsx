@@ -10,11 +10,29 @@ import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { PlayIcon } from "lucide-react";
 import Link from "next/link";
-import { TrendingData } from "@/lib/trending-data";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Badge } from "../ui/badge";
 
 interface FeedCarouselProps {}
 
 const FeedCarousel: FC<FeedCarouselProps> = ({}) => {
+  const getPopular = useQuery({
+    queryKey: ["popular", "carousel"],
+    queryFn: async () => {
+      const res = await axios.get(
+        "https://consumet-jade.vercel.app/meta/anilist/popular"
+      );
+
+      return res.data;
+    },
+  });
+
+  if (!getPopular.data) {
+    return <Skeleton className="h-[500px] rounded-lg" />;
+  }
+
   return (
     <Carousel
       plugins={[
@@ -24,8 +42,8 @@ const FeedCarousel: FC<FeedCarouselProps> = ({}) => {
       ]}
     >
       <CarouselContent>
-        {TrendingData.map((item, index) => (
-          <CarouselItem key={index}>
+        {getPopular.data.results?.map((item: any) => (
+          <CarouselItem key={item.id}>
             <CarouselThumbnail item={item} />
           </CarouselItem>
         ))}
@@ -47,14 +65,26 @@ const CarouselThumbnail: FC<CarouselThumbnailProps> = ({ item }) => {
       <section className="py-5 px-8 bg-gradient-to-b from-transparent to-black rounded-b-lg flex justify-between items-center">
         <div>
           <h3 className="text-primary-foreground text-xl font-semibold">
-            {item.name}
+            {item.title.english === null
+              ? item.title.romaji
+              : item.title.english}
           </h3>
           <p className="text-primary-foreground mb-3 text-sm">
-            Action, Adventure, Crime
+            {item.genres.map((genre: any) => (
+              <Badge
+                key={genre}
+                className="mr-1 rounded-sm"
+                variant={"secondary"}
+              >
+                {genre}
+              </Badge>
+            ))}
           </p>
-          <p className="text-muted-foreground text-xs">{item.dec}</p>
+          <p className="text-muted-foreground text-xs max-w-5xl">
+            {item.description}
+          </p>
         </div>
-        <Link href={`feed/${item.id}`}>
+        <Link href={`/feed/${item.id}`}>
           <Button className="mt-4 flex items-center" variant={"outline"}>
             <PlayIcon size={14} className="mr-1.5" />
             Watch Now

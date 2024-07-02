@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
-import { Album } from "@/lib/trending-data";
 import { Badge } from "../ui/badge";
+import { Star } from "lucide-react";
 
 interface ThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
-  album: Album;
+  item: any;
   aspectRatio?: "portrait" | "square";
   width?: number;
   height?: number;
@@ -13,7 +13,7 @@ interface ThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Thumbnail({
-  album,
+  item,
   aspectRatio = "portrait",
   width,
   height,
@@ -25,10 +25,12 @@ export function Thumbnail({
     <div className={cn("space-y-3", className)} {...props}>
       <div className="overflow-hidden rounded-md relative">
         <Image
-          src={album.cover}
-          alt={album.name}
+          src={`https://sup-proxy.zephex0-f6c.workers.dev/api-content?url=${item.cover}`}
+          alt={"cover"}
           width={width}
+          loading="lazy"
           height={height}
+          unoptimized
           className={cn(
             "h-auto w-auto object-cover transition-all hover:scale-105 cursor-pointer",
             aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
@@ -36,7 +38,7 @@ export function Thumbnail({
         />
       </div>
       {variant === "epThumbnail" ? null : (
-        <ThumbnailMemo album={album} variant={variant} />
+        <ThumbnailMemo album={item} variant={variant} />
       )}
     </div>
   );
@@ -46,22 +48,24 @@ const ThumbnailMemo = ({
   album,
   variant,
 }: {
-  album: Album;
+  album: any;
   variant?: string;
 }) => {
   return (
     <div className="space-y-1 text-sm">
       <div className="flex justify-between items-center">
-        <h3 className="font-medium leading-none">{album.name}</h3>
+        <h3 className="font-medium leading-none">
+          {album.title.english === null
+            ? album.title.romaji
+            : album.title.english}
+        </h3>
         {variant === "epThumbnail" || variant === "square" ? null : (
           <Badge variant={"outline"} className="rounded-md">
+            <Star size={10} className="mr-1" />
             {album.rating}
           </Badge>
         )}
       </div>
-      {variant === "epThumbnail" || variant === "square" ? null : (
-        <p className="text-xs text-muted-foreground">{album.dec}</p>
-      )}
     </div>
   );
 };

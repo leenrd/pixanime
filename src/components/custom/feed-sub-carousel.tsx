@@ -5,32 +5,43 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Album } from "@/lib/trending-data";
 import { Thumbnail } from "./thumbnail";
+import { Image as ImageIcon } from "lucide-react";
 import Link from "next/link";
 
-const FeedSubCarousel = ({ data }: { data: Album[] }) => {
+const FeedSubCarousel = ({ data }: { data: any }) => {
+  console.log("FeedSubCarousel", data);
   return (
-    <Carousel className="w-full">
-      <CarouselContent>
-        {data.map((album: Album, index: number) => (
-          <Link href={`feed/${album.id}`} key={index}>
-            <CarouselItem key={index} className=" md:basis-1/2 lg:basis-1/5">
-              <Thumbnail
-                key={index}
-                album={album}
-                className="w-[250px]"
-                aspectRatio="portrait"
-                width={250}
-                height={330}
-              />
-            </CarouselItem>
-          </Link>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+    <>
+      <Carousel className="w-full">
+        <CarouselContent>
+          {data &&
+            data.results?.slice(0, 20).map((item: any) => (
+              <Link href={`feed/${item.id}`} key={item.id}>
+                <CarouselItem
+                  key={item.id}
+                  className=" md:basis-1/2 lg:basis-1/5"
+                >
+                  {item.cover ? (
+                    <Thumbnail
+                      key={item.id}
+                      item={item}
+                      className="w-[250px]"
+                      aspectRatio="portrait"
+                      width={250}
+                      height={330}
+                    />
+                  ) : (
+                    <ImageIcon className="text-muted" />
+                  )}
+                </CarouselItem>
+              </Link>
+            ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </>
   );
 };
 

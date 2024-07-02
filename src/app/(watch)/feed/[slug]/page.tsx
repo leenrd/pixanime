@@ -25,7 +25,7 @@ const Page = () => {
           <div
             className={cn(
               "h-[30dvh] w-full overflow-hidden border bg-muted shadow md:rounded-lg lg:h-[55dvh]",
-              embed ? "max-h-[20vh] md:max-h-[50vh]" : undefined
+              embed ? "max-h-[20vh] md:max-h-[50vh]" : null
             )}
           >
             <div
@@ -53,12 +53,7 @@ const Page = () => {
                       fill
                       loading="lazy"
                       sizes="100%"
-                      alt={
-                        // data.title["english"] == null || !data.title["english"]
-                        //   ? data.title["romaji"]
-                        //   : data.title["english"]
-                        "Anime Poster"
-                      }
+                      alt={"Anime Poster"}
                       src={data.cover}
                     />
                   ) : (

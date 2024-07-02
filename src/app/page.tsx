@@ -45,7 +45,7 @@ export default function Home() {
               <Link href={`feed/${item.id}`} key={i}>
                 <Thumbnail
                   key={i}
-                  album={item}
+                  item={item}
                   className="w-[150px]"
                   aspectRatio="square"
                   width={150}
