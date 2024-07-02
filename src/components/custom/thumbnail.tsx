@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
-import { Album, TrendingData } from "@/lib/trending-data";
+import { Album } from "@/lib/trending-data";
 import { Badge } from "../ui/badge";
 
 interface ThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -9,6 +9,7 @@ interface ThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
   aspectRatio?: "portrait" | "square";
   width?: number;
   height?: number;
+  variant?: string;
 }
 
 export function Thumbnail({
@@ -16,12 +17,13 @@ export function Thumbnail({
   aspectRatio = "portrait",
   width,
   height,
+  variant,
   className,
   ...props
 }: ThumbnailProps) {
   return (
     <div className={cn("space-y-3", className)} {...props}>
-      <div className="overflow-hidden rounded-md">
+      <div className="overflow-hidden rounded-md relative">
         <Image
           src={album.cover}
           alt={album.name}
@@ -33,15 +35,33 @@ export function Thumbnail({
           )}
         />
       </div>
-      <div className="space-y-1 text-sm">
-        <div className="flex justify-between items-center">
-          <h3 className="font-medium leading-none">{album.name}</h3>
-          <Badge variant={"outline"} className="rounded-md">
-            {album.rating}
-          </Badge>
-        </div>
-        <p className="text-xs text-muted-foreground">{album.dec}</p>
-      </div>
+      {variant === "epThumbnail" ? null : (
+        <ThumbnailMemo album={album} variant={variant} />
+      )}
     </div>
   );
 }
+
+const ThumbnailMemo = ({
+  album,
+  variant,
+}: {
+  album: Album;
+  variant?: string;
+}) => {
+  return (
+    <div className="space-y-1 text-sm">
+      <div className="flex justify-between items-center">
+        <h3 className="font-medium leading-none">{album.name}</h3>
+        {variant === "epThumbnail" || variant === "square" ? null : (
+          <Badge variant={"outline"} className="rounded-md">
+            {album.rating}
+          </Badge>
+        )}
+      </div>
+      {variant === "epThumbnail" || variant === "square" ? null : (
+        <p className="text-xs text-muted-foreground">{album.dec}</p>
+      )}
+    </div>
+  );
+};

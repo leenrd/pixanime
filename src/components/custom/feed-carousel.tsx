@@ -9,6 +9,8 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { PlayIcon } from "lucide-react";
+import Link from "next/link";
+import { TrendingData } from "@/lib/trending-data";
 
 interface FeedCarouselProps {}
 
@@ -22,7 +24,7 @@ const FeedCarousel: FC<FeedCarouselProps> = ({}) => {
       ]}
     >
       <CarouselContent>
-        {Array.from({ length: 10 }).map((item, index) => (
+        {TrendingData.map((item, index) => (
           <CarouselItem key={index}>
             <CarouselThumbnail item={item} />
           </CarouselItem>
@@ -40,25 +42,24 @@ const CarouselThumbnail: FC<CarouselThumbnailProps> = ({ item }) => {
   return (
     <div
       className="h-[500px] bg-cover bg-center rounded-lg shadow-lg bg-no-repeat flex flex-col justify-end gap-2"
-      style={{ backgroundImage: 'url("/batman.webp")' }}
+      style={{ backgroundImage: `url(${item.cover})` }}
     >
       <section className="py-5 px-8 bg-gradient-to-b from-transparent to-black rounded-b-lg flex justify-between items-center">
         <div>
           <h3 className="text-primary-foreground text-xl font-semibold">
-            Batman
+            {item.name}
           </h3>
           <p className="text-primary-foreground mb-3 text-sm">
             Action, Adventure, Crime
           </p>
-          <p className="text-muted-foreground text-xs">
-            As new threats emerge, can our shy heroine step up and save the day
-            once again?
-          </p>
+          <p className="text-muted-foreground text-xs">{item.dec}</p>
         </div>
-        <Button className="mt-4 flex items-center" variant={"outline"}>
-          <PlayIcon size={14} className="mr-1.5" />
-          Watch Now
-        </Button>
+        <Link href={`feed/${item.id}`}>
+          <Button className="mt-4 flex items-center" variant={"outline"}>
+            <PlayIcon size={14} className="mr-1.5" />
+            Watch Now
+          </Button>
+        </Link>
       </section>
     </div>
   );

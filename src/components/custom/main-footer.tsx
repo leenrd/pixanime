@@ -11,7 +11,7 @@ interface MainFooterProps {
 const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
   return (
     <>
-      <Separator className="mt-[10em] mb-7" />
+      <Separator className="mb-7 mt-0" />
       <footer
         className={cn(
           "flex justify-between items-start px-7 mb-10 z-50 bg-background",

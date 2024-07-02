@@ -36,20 +36,23 @@ export default function Home() {
         </PageHeader>
         <div className="space-y-1">
           <h2 className="text-2xl font-semibold mb-5 tracking-tight">
-            New Picks
+            Newest Releases
           </h2>
         </div>
-        <div className="relative">
+        <div className="relative mb-20">
           <Marquee pauseOnHover className="[--duration:30s]">
             {TrendingData.map((item, i) => (
-              <Thumbnail
-                key={i}
-                album={item}
-                className="w-[150px]"
-                aspectRatio="square"
-                width={150}
-                height={150}
-              />
+              <Link href={`feed/${item.id}`} key={i}>
+                <Thumbnail
+                  key={i}
+                  album={item}
+                  className="w-[150px]"
+                  aspectRatio="square"
+                  width={150}
+                  height={150}
+                  variant="square"
+                />
+              </Link>
             ))}
           </Marquee>
         </div>
