@@ -5,11 +5,10 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
+import { PlayIcon } from "lucide-react";
 
 interface FeedCarouselProps {}
 
@@ -29,8 +28,6 @@ const FeedCarousel: FC<FeedCarouselProps> = ({}) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
     </Carousel>
   );
 };
@@ -42,7 +39,7 @@ interface CarouselThumbnailProps {
 const CarouselThumbnail: FC<CarouselThumbnailProps> = ({ item }) => {
   return (
     <div
-      className="h-[600px] bg-cover bg-center rounded-lg shadow-lg bg-no-repeat flex flex-col justify-end gap-2 cursor-pointer"
+      className="h-[500px] bg-cover bg-center rounded-lg shadow-lg bg-no-repeat flex flex-col justify-end gap-2"
       style={{ backgroundImage: 'url("/batman.webp")' }}
     >
       <section className="py-5 px-8 bg-gradient-to-b from-transparent to-black rounded-b-lg flex justify-between items-center">
@@ -58,7 +55,8 @@ const CarouselThumbnail: FC<CarouselThumbnailProps> = ({ item }) => {
             once again?
           </p>
         </div>
-        <Button className="mt-4" variant={"outline"}>
+        <Button className="mt-4 flex items-center" variant={"outline"}>
+          <PlayIcon size={14} className="mr-1.5" />
           Watch Now
         </Button>
       </section>
