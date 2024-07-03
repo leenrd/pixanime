@@ -73,7 +73,7 @@ const Page: FC<PageProps> = ({}) => {
           </div>
         </div>
         <Separator className="my-4" />
-        <FeedSubCarousel data={getTrending.data} />
+        <FeedSubCarousel type="data" data={getTrending.data} />
       </section>
 
       <section className="container">
@@ -88,7 +88,7 @@ const Page: FC<PageProps> = ({}) => {
           </div>
         </div>
         <Separator className="my-4" />
-        <FeedSubCarousel data={getPopular.data} />
+        <FeedSubCarousel type="data" data={getPopular.data} />
       </section>
 
       <section className="container mb-28">
@@ -101,7 +101,7 @@ const Page: FC<PageProps> = ({}) => {
           </div>
         </div>
         <Separator className="my-4" />
-        <FeedSubCarousel data={getUpcoming.data} />
+        <FeedSubCarousel type="data" data={getUpcoming.data} />
       </section>
     </section>
   );

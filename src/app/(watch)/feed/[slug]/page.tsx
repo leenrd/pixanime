@@ -11,12 +11,31 @@ import { LucideImage } from "lucide-react";
 import FeedSubCarousel from "@/components/custom/feed-sub-carousel";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Badge } from "@/components/ui/badge";
 
 const Page = () => {
   const params = useParams<{ slug: string }>();
-  const pageID = params.slug;
+  const showID = params.slug;
 
-  const data = TrendingData.find((item) => item.id === Number(pageID))!;
+  const getShowData = useQuery({
+    queryKey: ["show", showID],
+    queryFn: async () => {
+      const res = await axios.get(
+        `https://consumet-jade.vercel.app/meta/anilist/data/${showID}`
+      );
+
+      return res.data;
+    },
+  });
+
+  if (!getShowData.data) {
+    return <div>No show found. Try refreshing the page.</div>;
+  }
+
+  const data = getShowData.data;
+  console.log("consumet", data);
   const embed = false;
   return (
     <>
@@ -28,15 +47,17 @@ const Page = () => {
               embed ? "max-h-[20vh] md:max-h-[50vh]" : null
             )}
           >
-            <div
-              style={{
-                backgroundImage: `url('${data.cover}')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-              className="h-full w-full brightness-50"
-              data-testid="banner"
-            />
+            {data.cover ? (
+              <div
+                style={{
+                  backgroundImage: `url('${data.cover}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+                className="h-full w-full brightness-50"
+                data-testid="banner"
+              />
+            ) : null}
           </div>
 
           <div className="mx-auto my-8 max-w-4xl space-y-8 p-4 md:space-y-12 md:p-0 ">
@@ -47,14 +68,14 @@ const Page = () => {
                     "relative flex aspect-poster w-full items-center justify-center overflow-hidden h-[420px] rounded-lg bg-muted text-muted shadow"
                   )}
                 >
-                  {data.cover ? (
+                  {data.image ? (
                     <Image
                       className="object-fill"
                       fill
                       loading="lazy"
                       sizes="100%"
                       alt={"Anime Poster"}
-                      src={data.cover}
+                      src={data.image}
                     />
                   ) : (
                     <LucideImage size={24} />
@@ -63,40 +84,30 @@ const Page = () => {
               </aside>
 
               <article className="flex w-full flex-col gap-2 md:w-2/3">
-                {/* {data.releaseDate && (
+                {data.releaseDate && (
                   <span className="text-xs text-muted-foreground">
                     {format(new Date(data.releaseDate), "PPP", {})}
                   </span>
-                )} */}
-                <span className="text-xs text-muted-foreground">
-                  June 12, 2021
-                </span>
+                )}
 
-                {/* <h1 className="text-lg font-bold md:text-4xl">
-                  {data.title["english"] == null || !data.title["english"]
-                    ? data.title["romaji"]
-                    : data.title["english"]}
-                </h1> */}
-                <h1 className="text-lg font-bold md:text-4xl">{data.name}</h1>
+                <h1 className="text-lg font-bold md:text-4xl">
+                  {data.title.english === null
+                    ? data.title.romaji
+                    : data.title.english}
+                </h1>
 
-                {/* <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   {data.genres && (
                     <>
                       {data.genres.map((genre: any) => {
                         return (
-                          <Link
+                          <Badge
+                            variant="outline"
+                            className="whitespace-nowrap"
                             key={genre}
-                            href={`/anime/genre/${genre
-                              .toLowerCase()
-                              .replace(/ /g, "-")}`}
                           >
-                            <Badge
-                              variant="outline"
-                              className="whitespace-nowrap"
-                            >
-                              {genre}
-                            </Badge>
-                          </Link>
+                            {genre}
+                          </Badge>
                         );
                       })}
 
@@ -111,38 +122,37 @@ const Page = () => {
                   <Badge variant="secondary" className="whitespace-nowrap">
                     {data.totalEpisodes}
                   </Badge>
-                </div> */}
+                </div>
 
                 <p className="text-xs leading-5 text-muted-foreground md:text-sm md:leading-6">
-                  {data.dec}
+                  {data.description}
                 </p>
 
                 <PageActions className="justify-start">
                   <Link href={`/watch/${data.id}/${data.id}`}>
-                    <Button variant={"default"}>Watch</Button>
-                  </Link>
-                  <Link href={`/watch/${data.id}/${data.id}`}>
-                    <Button variant={"secondary"}>Watch Trailer</Button>
+                    <Button variant={"default"}>Watch now</Button>
                   </Link>
                 </PageActions>
               </article>
             </main>
           </div>
 
-          <section className="container my-28">
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <h2 className="text-2xl font-semibold tracking-tight">
-                  Related Shows
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  Watch this next.
-                </p>
+          {data.recommendations ? (
+            <section className="container my-28">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-semibold tracking-tight">
+                    Related Shows
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Watch this next.
+                  </p>
+                </div>
               </div>
-            </div>
-            <Separator className="my-4" />
-            <FeedSubCarousel data={TrendingData} />
-          </section>
+              <Separator className="my-4" />
+              <FeedSubCarousel data={data.recommendations} type="rec" />
+            </section>
+          ) : null}
         </div>
       </div>
     </>

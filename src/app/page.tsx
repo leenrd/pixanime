@@ -1,3 +1,5 @@
+"use client";
+
 import { Announcement } from "@/components/custom/announcement";
 import Marquee from "@/components/custom/marquee";
 import {
@@ -8,11 +10,26 @@ import {
 } from "@/components/custom/page-header";
 import { Thumbnail } from "@/components/custom/thumbnail";
 import { Button } from "@/components/ui/button";
-import { TrendingData } from "@/lib/trending-data";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { Flame } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
+  const getPopular = useQuery({
+    queryKey: ["popular", "carousel"],
+    queryFn: async () => {
+      const res = await axios.get(
+        "https://consumet-jade.vercel.app/meta/anilist/popular"
+      );
+
+      return res.data;
+    },
+    staleTime: 1000 * 60 * 60,
+  });
+
+  // console.log(getPopular.data.results);
+
   return (
     <>
       <main className="container relative flex-1">
@@ -41,10 +58,10 @@ export default function Home() {
         </div>
         <div className="relative mb-20">
           <Marquee pauseOnHover className="[--duration:30s]">
-            {TrendingData.map((item, i) => (
-              <Link href={`feed/${item.id}`} key={i}>
+            {getPopular.data.results?.map((item: any) => (
+              <Link href={`feed/${item.id}`} key={item.id}>
                 <Thumbnail
-                  key={i}
+                  key={item.id}
                   item={item}
                   className="w-[150px]"
                   aspectRatio="square"

@@ -6,6 +6,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "sup-proxy.zephex0-f6c.workers.dev",
       },
+      {
+        protocol: "https",
+        hostname: "s4.anilist.co",
+      },
+      {
+        protocol: "https",
+        hostname: "gogocdn.net",
+      },
     ],
   },
 };
