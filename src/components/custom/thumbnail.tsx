@@ -10,6 +10,7 @@ interface ThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: number;
   height?: number;
   variant?: string;
+  eps?: any;
 }
 
 export function Thumbnail({
@@ -19,6 +20,7 @@ export function Thumbnail({
   height,
   variant,
   className,
+  eps,
   ...props
 }: ThumbnailProps) {
   return (
@@ -38,7 +40,7 @@ export function Thumbnail({
         />
       </div>
       {variant === "epThumbnail" ? null : (
-        <ThumbnailMemo album={item} variant={variant} />
+        <ThumbnailMemo album={item} variant={variant} eps={eps} />
       )}
     </div>
   );
@@ -47,22 +49,27 @@ export function Thumbnail({
 const ThumbnailMemo = ({
   album,
   variant,
+  eps,
 }: {
   album: any;
   variant?: string;
+  eps?: any;
 }) => {
   return (
     <div className="space-y-1 text-sm">
       <div className="flex justify-between items-center">
         <h3 className="font-medium leading-none">
-          {album.title.english === null
-            ? album.title.romaji
-            : album.title.english || album.title}
+          {variant === "episode" ? (
+            <span>Episode: {eps.number}</span>
+          ) : (
+            album.title
+          )}
         </h3>
-        {variant === "epThumbnail" || variant === "square" ? null : (
+        {variant === "epThumbnail" ||
+        variant === "square" ||
+        variant === "episode" ? null : (
           <Badge variant={"outline"} className="rounded-md">
-            <Star size={10} className="mr-1" />
-            {album.rating}
+            {album.episodeNumber || album.genres.length}
           </Badge>
         )}
       </div>

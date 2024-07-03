@@ -3,47 +3,64 @@
 import NoShowFound from "@/components/common/no-show-found";
 import { Thumbnail } from "@/components/custom/thumbnail";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TrendingData } from "@/lib/trending-data";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";
-import { FC } from "react";
+import { useParams } from "next/navigation";
+import { FC, useEffect, useState } from "react";
 
-const Page = ({ params }: { params: { slug: string } }) => {
-  const showID = params.slug;
+import "@vidstack/react/player/styles/default/theme.css";
+import "@vidstack/react/player/styles/default/layouts/video.css";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
+import {
+  defaultLayoutIcons,
+  DefaultVideoLayout,
+} from "@vidstack/react/player/layouts/default";
 
-  console.log("showID", showID);
+const Page: FC = () => {
+  const [serverWatchSrc, setServerWatchSrc] = useState<any>("");
+  const params = useParams<{ id: string; ep: string }>();
+  const showID = params.id;
+  const epID = params.ep;
 
-  // const watchInfo = useQuery({
-  //   queryKey: ["watch", "info"],
-  //   queryFn: async () => {
-  //     const res = await axios.get(
-  //       `https://consumet_api_url/meta/anilist/data/${showID}`
-  //     );
+  const getWatchData = useQuery({
+    queryKey: ["watch", showID],
+    queryFn: async () => {
+      const res = await axios.get(
+        `https://animetize-api.vercel.app/info/${showID}`
+      );
 
-  //     return res.data;
-  //   },
-  // });
+      return res.data;
+    },
+  });
 
-  // const watchData = useQuery({
-  //   queryKey: ["watch", showID],
-  //   queryFn: async () => {
-  //     const res = await axios.get(
-  //       `${process.env.CONSUMET_API_ANILIST_URL}/episodes/${watchInfo.data.id}?provider=gogoanime`
-  //     );
+  console.log("params", epID, showID);
 
-  //     return res.data;
-  //   },
-  // });
+  useEffect(() => {
+    // const url = `https://animetize-api.vercel.app/servers/${epID}`;
+    const url = `https://animetize-api.vercel.app/watch/${epID}?server=vidstreaming`;
+    const data = async () => {
+      try {
+        const res = await axios.get(url, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setServerWatchSrc(res.data.sources[2].url);
+      } catch (err: any) {
+        throw new Error(err.message);
+      }
+    };
 
-  // console.log("watchInfo", watchInfo.data);
+    data();
+  }, [epID]);
 
-  // if (!watchData.data) {
-  //   return <NoShowFound />;
-  // }
-  // if (!watchInfo.data) {
-  //   return <NoShowFound />;
-  // }
+  console.log("serverWatchSrc", serverWatchSrc);
+
+  const data = getWatchData.data;
+  if (!data) {
+    return <NoShowFound />;
+  }
 
   return (
     <section className="flex">
@@ -54,20 +71,17 @@ const Page = ({ params }: { params: { slug: string } }) => {
           </h2>
           <ScrollArea className="h-[600px] px-1">
             <div className="space-y-1 p-5">
-              {TrendingData?.map((playlist, i) => (
-                <Link
-                  key={i}
-                  href={`/watch/${playlist.id}/${playlist.id}`}
-                  passHref
-                >
+              {data.episodes.map((ep: any) => (
+                <Link key={ep.id} href={`/watch/${data.id}/${ep.id}`} passHref>
                   <Thumbnail
-                    key={i}
-                    item={playlist}
+                    key={ep.id}
+                    item={data}
                     aspectRatio="square"
                     className="w-[150px] mt-2"
                     width={150}
                     height={150}
-                    variant="square"
+                    variant="episode"
+                    eps={ep}
                   />
                 </Link>
               ))}
@@ -75,8 +89,14 @@ const Page = ({ params }: { params: { slug: string } }) => {
           </ScrollArea>
         </div>
       </aside>
-      <div className="mt-7 flex justify-center items-center h-full w-full bg-red-600">
-        <div className="bg-cyan-300">screen video</div>
+      <div className="max-w-auto mx-auto flex">
+        <MediaPlayer
+          src={{ src: `${serverWatchSrc}`, type: "video/mp4" }}
+          // src={serverWatchSrc}
+        >
+          <MediaProvider />
+          <DefaultVideoLayout icons={defaultLayoutIcons} />
+        </MediaPlayer>
       </div>
     </section>
   );

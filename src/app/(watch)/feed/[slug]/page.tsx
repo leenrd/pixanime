@@ -24,7 +24,7 @@ const Page = () => {
     queryKey: ["show", showID],
     queryFn: async () => {
       const res = await axios.get(
-        `https://consumet-jade.vercel.app/meta/anilist/data/${showID}`
+        `https://animetize-api.vercel.app/info/${showID}`
       );
 
       return res.data;
@@ -33,27 +33,11 @@ const Page = () => {
 
   const data = getShowData.data;
 
-  // TODO: fix
-  // const watchData = useQuery({
-  //   queryKey: ["watch", data.id],
-  //   queryFn: async () => {
-  //     const res = await axios.get(
-  //       `https://animetize-api.vercel.app/info/${data.id}`
-  //     );
-
-  //     return res.data;
-  //   },
-  // });
-
   if (!getShowData.data) {
     return <NoShowFound />;
   }
 
-  // if (!watchData.data) {
-  //   return <NoShowFound />;
-  // }
-
-  console.log("consumet", data.id);
+  // console.log("consumet", data.id);
   const embed = false;
   return (
     <>
@@ -65,10 +49,10 @@ const Page = () => {
               embed ? "max-h-[20vh] md:max-h-[50vh]" : null
             )}
           >
-            {data.cover ? (
+            {data.image ? (
               <div
                 style={{
-                  backgroundImage: `url('${data.cover}')`,
+                  backgroundImage: `url('${data.image}')`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -102,17 +86,14 @@ const Page = () => {
               </aside>
 
               <article className="flex w-full flex-col gap-2 md:w-2/3">
-                {data.releaseDate && (
+                {data.releaseDate && data.type ? (
                   <span className="text-xs text-muted-foreground">
-                    {format(new Date(data.releaseDate), "PPP", {})}
+                    {format(new Date(data.releaseDate), "PPP", {})} |{" "}
+                    {data.type}
                   </span>
-                )}
+                ) : null}
 
-                <h1 className="text-lg font-bold md:text-4xl">
-                  {data.title.english === null
-                    ? data.title.romaji
-                    : data.title.english}
-                </h1>
+                <h1 className="text-lg font-bold md:text-4xl">{data.title}</h1>
 
                 <div className="flex flex-wrap items-center gap-2">
                   {data.genres && (
@@ -147,7 +128,7 @@ const Page = () => {
                 </p>
 
                 <PageActions className="justify-start">
-                  <Link href={`/watch/${data.id}/`}>
+                  <Link href={`/watch/${data.id}/${data.episodes[0].id}`}>
                     <Button variant={"default"}>Watch now</Button>
                   </Link>
                 </PageActions>
@@ -155,7 +136,7 @@ const Page = () => {
             </main>
           </div>
 
-          {data.recommendations ? (
+          {/* {data.recommendations ? (
             <section className="container my-28">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
@@ -170,7 +151,7 @@ const Page = () => {
               <Separator className="my-4" />
               <FeedSubCarousel data={data.recommendations} type="rec" />
             </section>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </>

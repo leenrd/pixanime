@@ -7,9 +7,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { Button } from "@/components/ui/button";
-import { PlayIcon } from "lucide-react";
-import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -70,12 +67,8 @@ const CarouselThumbnail: FC<CarouselThumbnailProps> = ({ item }) => {
               : item.title.english}
           </h3>
           <p className="text-primary-foreground mb-3 text-sm">
-            {item.genres.map((genre: any) => (
-              <Badge
-                key={genre}
-                className="mr-1 rounded-sm"
-                variant={"secondary"}
-              >
+            {item.genres.map((genre: any, i: number) => (
+              <Badge key={i} className="mr-1 rounded-sm" variant={"secondary"}>
                 {genre}
               </Badge>
             ))}
