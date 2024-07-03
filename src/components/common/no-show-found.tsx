@@ -7,7 +7,7 @@ const NoShowFound: FC<NoShowFoundProps> = ({}) => {
   return (
     <section className="w-full h-screen flex items-center justify-center">
       <div className="text-center flex flex-col items-center justify-center">
-        <Loader size={64} className="animate-spin mb-10" />
+        <Loader size={64} className="animate-spin mb-10 mr-5" />
         <h1 className="text-3xl font-semibold">Loading...</h1>
         <p>If loading persists, try refreshing the page.</p>
       </div>

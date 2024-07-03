@@ -17,18 +17,18 @@ import { Flame } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
-  const getTrending = useQuery({
+  const latestRelease = useQuery({
     queryKey: ["trending"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://consumet-jade.vercel.app/meta/anilist/trending"
+        "https://animetize-api.vercel.app/recent-episodes"
       );
 
       return res.data;
     },
   });
 
-  if (!getTrending.data) {
+  if (!latestRelease.data) {
     return <NoShowFound />;
   }
 
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
         <div className="relative mb-20">
           <Marquee pauseOnHover className="[--duration:30s]">
-            {getTrending.data.results.map((item: any) => (
+            {latestRelease.data.results.map((item: any) => (
               <Link href={`feed/${item.id}`} key={item.id}>
                 <Thumbnail
                   key={item.id}

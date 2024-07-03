@@ -15,7 +15,7 @@ const Page: FC<PageProps> = ({}) => {
     queryKey: ["trending"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://consumet-jade.vercel.app/meta/anilist/trending"
+        "https://animetize-api.vercel.app/recent-episodes"
       );
 
       return res.data;
@@ -26,7 +26,7 @@ const Page: FC<PageProps> = ({}) => {
     queryKey: ["popular"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://consumet-jade.vercel.app/meta/anilist/popular"
+        "https://animetize-api.vercel.app/top-airing"
       );
 
       return res.data;
@@ -66,7 +66,7 @@ const Page: FC<PageProps> = ({}) => {
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">
-              Trending Now
+              Releases Today
             </h2>
             <p className="text-sm text-muted-foreground">
               Top picks for you. Updated daily.
@@ -81,7 +81,7 @@ const Page: FC<PageProps> = ({}) => {
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">
-              Popular of All Time
+              Popular Now
             </h2>
             <p className="text-sm text-muted-foreground">
               Top charts of anime that are all-time popular.
@@ -102,7 +102,11 @@ const Page: FC<PageProps> = ({}) => {
           </div>
         </div>
         <Separator className="my-4" />
-        <FeedSubCarousel type="data" data={getUpcoming.data} />
+        <FeedSubCarousel
+          type="data"
+          data={getUpcoming.data}
+          clickable={false}
+        />
       </section>
     </section>
   );

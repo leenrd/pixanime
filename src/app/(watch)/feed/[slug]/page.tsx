@@ -31,27 +31,29 @@ const Page = () => {
     },
   });
 
-  const watchData = useQuery({
-    queryKey: ["watch", showID],
-    queryFn: async () => {
-      const res = await axios.get(
-        `${process.env.CONSUMET_API_ANILIST_URL}/episodes/${getShowData.data.id}?provider=gogoanime`
-      );
+  const data = getShowData.data;
 
-      return res.data;
-    },
-  });
+  // TODO: fix
+  // const watchData = useQuery({
+  //   queryKey: ["watch", data.id],
+  //   queryFn: async () => {
+  //     const res = await axios.get(
+  //       `https://animetize-api.vercel.app/info/${data.id}`
+  //     );
+
+  //     return res.data;
+  //   },
+  // });
 
   if (!getShowData.data) {
     return <NoShowFound />;
   }
 
-  if (!watchData.data) {
-    return <NoShowFound />;
-  }
+  // if (!watchData.data) {
+  //   return <NoShowFound />;
+  // }
 
-  const data = getShowData.data;
-  // console.log("consumet", data);
+  console.log("consumet", data.id);
   const embed = false;
   return (
     <>
@@ -145,7 +147,7 @@ const Page = () => {
                 </p>
 
                 <PageActions className="justify-start">
-                  <Link href={`/watch/${data.id}/{watchData.data}`}>
+                  <Link href={`/watch/${data.id}/`}>
                     <Button variant={"default"}>Watch now</Button>
                   </Link>
                 </PageActions>

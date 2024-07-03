@@ -25,7 +25,7 @@ export function Thumbnail({
     <div className={cn("space-y-3", className)} {...props}>
       <div className="overflow-hidden rounded-md relative">
         <Image
-          src={`https://sup-proxy.zephex0-f6c.workers.dev/api-content?url=${item.cover}`}
+          src={item.image}
           alt={"cover"}
           width={width}
           loading="lazy"
@@ -57,7 +57,7 @@ const ThumbnailMemo = ({
         <h3 className="font-medium leading-none">
           {album.title.english === null
             ? album.title.romaji
-            : album.title.english}
+            : album.title.english || album.title}
         </h3>
         {variant === "epThumbnail" || variant === "square" ? null : (
           <Badge variant={"outline"} className="rounded-md">

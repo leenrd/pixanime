@@ -84,12 +84,6 @@ const CarouselThumbnail: FC<CarouselThumbnailProps> = ({ item }) => {
             {item.description}
           </p>
         </div>
-        <Link href={`/feed/${item.id}`}>
-          <Button className="mt-4 flex items-center" variant={"outline"}>
-            <PlayIcon size={14} className="mr-1.5" />
-            Watch Now
-          </Button>
-        </Link>
       </section>
     </div>
   );
