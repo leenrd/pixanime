@@ -60,9 +60,9 @@ const ThumbnailMemo = ({
       <div className="flex justify-between items-center">
         <h3 className="font-medium leading-none">
           {variant === "episode" ? (
-            <span>Episode: {eps.number}</span>
+            <>Episode: {eps.number}</>
           ) : (
-            album.title
+            album.title.english || album.title.toString()
           )}
         </h3>
         {variant === "epThumbnail" ||

@@ -46,6 +46,7 @@ const Page: FC = () => {
             "Content-Type": "application/json",
           },
         });
+        // TODO: map the sources to get the server url
         setServerWatchSrc(res.data.sources[2].url);
       } catch (err: any) {
         throw new Error(err.message);

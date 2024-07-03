@@ -18,6 +18,22 @@ const FeedSubCarousel = ({
   type: string;
   clickable?: boolean;
 }) => {
+  const upcoming = data.results?.map((item: any) => (
+    <CarouselItem key={item.id} className=" md:basis-1/2 lg:basis-1/5">
+      {item.image ? (
+        <Thumbnail
+          item={item}
+          className="w-[250px] cursor-default"
+          aspectRatio="portrait"
+          width={250}
+          height={330}
+        />
+      ) : (
+        <ImageIcon className="text-muted" />
+      )}
+    </CarouselItem>
+  ));
+
   return (
     <>
       <Carousel className="w-full">
@@ -27,13 +43,9 @@ const FeedSubCarousel = ({
               ? clickable
                 ? data.results?.slice(0, 20).map((item: any) => (
                     <Link href={`feed/${item.id}`} key={item.id}>
-                      <CarouselItem
-                        key={item.id}
-                        className=" md:basis-1/2 lg:basis-1/5"
-                      >
+                      <CarouselItem className=" md:basis-1/2 lg:basis-1/5">
                         {item.image ? (
                           <Thumbnail
-                            key={item.id}
                             item={item}
                             className="w-[250px]"
                             aspectRatio="portrait"
@@ -46,34 +58,12 @@ const FeedSubCarousel = ({
                       </CarouselItem>
                     </Link>
                   ))
-                : data.results?.slice(0, 20).map((item: any) => (
-                    <CarouselItem
-                      key={item.id}
-                      className=" md:basis-1/2 lg:basis-1/5"
-                    >
-                      {item.image ? (
-                        <Thumbnail
-                          key={item.id}
-                          item={item}
-                          className="w-[250px] cursor-default"
-                          aspectRatio="portrait"
-                          width={250}
-                          height={330}
-                        />
-                      ) : (
-                        <ImageIcon className="text-muted" />
-                      )}
-                    </CarouselItem>
-                  ))
+                : upcoming
               : data.map((item: any) => (
                   <Link href={`${item.id}`} key={item.id}>
-                    <CarouselItem
-                      key={item.id}
-                      className=" md:basis-1/2 lg:basis-1/5"
-                    >
+                    <CarouselItem className=" md:basis-1/2 lg:basis-1/5">
                       {item.image ? (
                         <Thumbnail
-                          key={item.id}
                           item={item}
                           className="w-[250px]"
                           aspectRatio="portrait"
