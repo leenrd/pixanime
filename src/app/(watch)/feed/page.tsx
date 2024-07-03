@@ -1,5 +1,6 @@
 "use client";
 
+import NoShowFound from "@/components/common/no-show-found";
 import FeedCarousel from "@/components/custom/feed-carousel";
 import FeedSubCarousel from "@/components/custom/feed-sub-carousel";
 import { Separator } from "@/components/ui/separator";
@@ -44,15 +45,15 @@ const Page: FC<PageProps> = ({}) => {
   });
 
   if (!getTrending.data) {
-    return <div>No show found. Try refreshing the page.</div>;
+    return <NoShowFound />;
   }
 
   if (!getPopular.data) {
-    return <div>No show found. Try refreshing the page.</div>;
+    return <NoShowFound />;
   }
 
   if (!getUpcoming.data) {
-    return <div>No show found. Try refreshing the page.</div>;
+    return <NoShowFound />;
   }
 
   return (

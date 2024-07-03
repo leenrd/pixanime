@@ -1,5 +1,6 @@
 "use client";
 
+import NoShowFound from "@/components/common/no-show-found";
 import { Announcement } from "@/components/custom/announcement";
 import Marquee from "@/components/custom/marquee";
 import {
@@ -16,17 +17,20 @@ import { Flame } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
-  const getPopular = useQuery({
-    queryKey: ["popular", "carousel"],
+  const getTrending = useQuery({
+    queryKey: ["trending"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://consumet-jade.vercel.app/meta/anilist/popular"
+        "https://consumet-jade.vercel.app/meta/anilist/trending"
       );
 
       return res.data;
     },
-    staleTime: 1000 * 60 * 60,
   });
+
+  if (!getTrending.data) {
+    return <NoShowFound />;
+  }
 
   // console.log(getPopular.data.results);
 
@@ -58,7 +62,7 @@ export default function Home() {
         </div>
         <div className="relative mb-20">
           <Marquee pauseOnHover className="[--duration:30s]">
-            {getPopular.data.results?.map((item: any) => (
+            {getTrending.data.results.map((item: any) => (
               <Link href={`feed/${item.id}`} key={item.id}>
                 <Thumbnail
                   key={item.id}

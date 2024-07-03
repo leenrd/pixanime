@@ -1,17 +1,50 @@
 "use client";
 
+import NoShowFound from "@/components/common/no-show-found";
 import { Thumbnail } from "@/components/custom/thumbnail";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TrendingData } from "@/lib/trending-data";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { FC } from "react";
 
-interface PageProps {}
+const Page = ({ params }: { params: { slug: string } }) => {
+  const showID = params.slug;
 
-const Page: FC<PageProps> = ({}) => {
-  const params = useParams<{ slug: string }>();
-  const pageID = params.slug;
+  console.log("showID", showID);
+
+  // const watchInfo = useQuery({
+  //   queryKey: ["watch", "info"],
+  //   queryFn: async () => {
+  //     const res = await axios.get(
+  //       `https://consumet_api_url/meta/anilist/data/${showID}`
+  //     );
+
+  //     return res.data;
+  //   },
+  // });
+
+  // const watchData = useQuery({
+  //   queryKey: ["watch", showID],
+  //   queryFn: async () => {
+  //     const res = await axios.get(
+  //       `${process.env.CONSUMET_API_ANILIST_URL}/episodes/${watchInfo.data.id}?provider=gogoanime`
+  //     );
+
+  //     return res.data;
+  //   },
+  // });
+
+  // console.log("watchInfo", watchInfo.data);
+
+  // if (!watchData.data) {
+  //   return <NoShowFound />;
+  // }
+  // if (!watchInfo.data) {
+  //   return <NoShowFound />;
+  // }
+
   return (
     <section className="flex">
       <aside className="w-52 border-r h-full">

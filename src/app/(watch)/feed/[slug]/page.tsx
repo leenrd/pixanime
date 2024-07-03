@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Badge } from "@/components/ui/badge";
+import NoShowFound from "@/components/common/no-show-found";
 
 const Page = () => {
   const params = useParams<{ slug: string }>();
@@ -30,12 +31,27 @@ const Page = () => {
     },
   });
 
+  const watchData = useQuery({
+    queryKey: ["watch", showID],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${process.env.CONSUMET_API_ANILIST_URL}/episodes/${getShowData.data.id}?provider=gogoanime`
+      );
+
+      return res.data;
+    },
+  });
+
   if (!getShowData.data) {
-    return <div>No show found. Try refreshing the page.</div>;
+    return <NoShowFound />;
+  }
+
+  if (!watchData.data) {
+    return <NoShowFound />;
   }
 
   const data = getShowData.data;
-  console.log("consumet", data);
+  // console.log("consumet", data);
   const embed = false;
   return (
     <>
@@ -129,7 +145,7 @@ const Page = () => {
                 </p>
 
                 <PageActions className="justify-start">
-                  <Link href={`/watch/${data.id}/${data.id}`}>
+                  <Link href={`/watch/${data.id}/{watchData.data}`}>
                     <Button variant={"default"}>Watch now</Button>
                   </Link>
                 </PageActions>

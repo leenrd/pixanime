@@ -21,34 +21,34 @@ export function MainNav({
             Home
           </Link>
           <Link
-            href="/examples/dashboard"
+            href="/airing"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             Airing
           </Link>
           <Link
-            href="/examples/dashboard"
+            href="/top-rated"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             Top Rated
           </Link>
           <Link
-            href="/examples/dashboard"
+            href="/upcoming"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             Upcoming
           </Link>
           <Link
-            href="/examples/dashboard"
+            href="/changelog"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             Changelog
           </Link>
           <Link
-            href="/examples/dashboard"
+            href="/pixlens"
             className="text-sm flex font-medium bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent"
           >
-            Feeling Lucky
+            Pixlens
           </Link>
         </nav>
       </div>
