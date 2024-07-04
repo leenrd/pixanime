@@ -6,6 +6,12 @@ PixAnime is a [Next.js](https://nextjs.org/) project that let's users watch thei
 
 ## Learn More
 
+![Screenshot 2024-07-03 094947](https://github.com/leenrd/pixanime/assets/103997539/ed745ed5-f09a-47d3-8750-c974e18afbcb)
+![Screenshot 2024-07-03 095251](https://github.com/leenrd/pixanime/assets/103997539/cce6ebf8-ab14-4918-95b6-0040c016bfe0)
+![Screenshot 2024-07-03 095310](https://github.com/leenrd/pixanime/assets/103997539/7174c92e-fc09-4884-8e2e-12e0b419febd)
+![Screenshot 2024-07-03 233455](https://github.com/leenrd/pixanime/assets/103997539/5047ceac-d5ad-40b5-b1e1-0dbb1ab05010)
+
+
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
