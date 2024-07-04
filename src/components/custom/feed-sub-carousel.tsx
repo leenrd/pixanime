@@ -23,7 +23,7 @@ const FeedSubCarousel = ({
       {item.image ? (
         <Thumbnail
           item={item}
-          className="w-[250px] cursor-default"
+          className=" w-[250px] h-auto"
           aspectRatio="portrait"
           width={250}
           height={330}
@@ -47,7 +47,7 @@ const FeedSubCarousel = ({
                         {item.image ? (
                           <Thumbnail
                             item={item}
-                            className="w-[250px]"
+                            className="w-[250px] h-auto"
                             aspectRatio="portrait"
                             width={250}
                             height={330}
@@ -65,7 +65,7 @@ const FeedSubCarousel = ({
                       {item.image ? (
                         <Thumbnail
                           item={item}
-                          className="w-[250px]"
+                          className="w-[250px] h-auto"
                           aspectRatio="portrait"
                           width={250}
                           height={330}

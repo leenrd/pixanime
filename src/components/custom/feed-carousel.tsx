@@ -66,13 +66,13 @@ const CarouselThumbnail: FC<CarouselThumbnailProps> = ({ item }) => {
               ? item.title.romaji
               : item.title.english}
           </h3>
-          <p className="text-primary-foreground mb-3 text-sm">
+          <div className="text-primary-foreground mb-3 text-sm">
             {item.genres.map((genre: any, i: number) => (
               <Badge key={i} className="mr-1 rounded-sm" variant={"secondary"}>
                 {genre}
               </Badge>
             ))}
-          </p>
+          </div>
           <p className="text-muted-foreground text-xs max-w-5xl">
             {item.description}
           </p>

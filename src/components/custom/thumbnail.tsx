@@ -69,7 +69,7 @@ const ThumbnailMemo = ({
         variant === "square" ||
         variant === "episode" ? null : (
           <Badge variant={"outline"} className="rounded-md">
-            {album.episodeNumber || album.genres.length}
+            {album.episodeNumber || album.genres?.length}
           </Badge>
         )}
       </div>
