@@ -1,8 +1,8 @@
 PixAnime is a [Next.js](https://nextjs.org/) project that let's users watch their favorite anime for FREE! plus AD-FREE!. 😎🤩
 
-> [!Important]
+> [!Note]
 >
-> Pixanime is under development
+> I'm still adding some additional features
 
 ## Learn More
 
