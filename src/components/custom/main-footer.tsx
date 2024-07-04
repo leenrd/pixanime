@@ -43,12 +43,12 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
               </h1>
               <ul className="mb-3">
                 <li className="mb-2">
-                  <Link href={"/changelog"} className="text-sm">
+                  <Link href={"https://github.com/leenrd/"} className="text-sm">
                     Changelog
                   </Link>
                 </li>
                 <li>
-                  <Link href={"/changelog"} className="text-sm">
+                  <Link href={"https://github.com/leenrd/"} className="text-sm">
                     Support
                   </Link>
                 </li>
@@ -60,12 +60,12 @@ const MainFooter: FC<MainFooterProps> = ({ ...className }) => {
               </h1>
               <ul className="mb-3">
                 <li className="mb-2">
-                  <Link href={"/changelog"} className="text-sm">
+                  <Link href={"https://github.com/leenrd/"} className="text-sm">
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link href={"/changelog"} className="text-sm">
+                  <Link href={"https://github.com/leenrd/"} className="text-sm">
                     Career
                   </Link>
                 </li>
