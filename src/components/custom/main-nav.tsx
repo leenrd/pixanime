@@ -33,18 +33,6 @@ export function MainNav({
             Top Rated
           </Link>
           <Link
-            href="/upcoming"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            Upcoming
-          </Link>
-          <Link
-            href="/changelog"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            Changelog
-          </Link>
-          <Link
             href="/pixlens"
             className="text-sm flex font-medium bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent"
           >

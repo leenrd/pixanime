@@ -52,7 +52,9 @@ export default function Home() {
                 Watch now
               </Button>
             </Link>
-            <Button variant="outline">Pixlens</Button>
+            <Link href="/pixlens">
+              <Button variant="outline">Pixlens</Button>
+            </Link>
           </PageActions>
         </PageHeader>
         <div className="space-y-1">
